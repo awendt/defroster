@@ -30,7 +30,7 @@ cookbook_file "/etc/apache2/sites-available/wordpress" do
 end
 
 execute "a2dissite default"
-execute "a2ensite wordpress"
+execute "a2ensite wordpress && /etc/init.d/apache2 reload"
 
 additional_lines = <<-EOS
   define('WP_HOME','http://localhost:8080');
