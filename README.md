@@ -8,8 +8,7 @@ This wouldn't be possible without [Vagrant](http://vagrantup.com).
 ## Prerequisites
 
 1. Backup your WordPress site using any plugin that archives your files and the database.
-   I use [BackWPup](http://wordpress.org/extend/plugins/backwpup/) for that purpose.
-
+   I use [BackWPup](http://wordpress.org/extend/plugins/backwpup/) for that purpose.  
    **Important:** The archive must be a `.tgz` or `.tar.gz` file.
    The `.sql` file must be located top-level in that archive.
 2. Copy the backup file to `cookbooks/wordpress/files/default/backwpup.tar.gz`
