@@ -70,3 +70,9 @@ execute "tweak options to match this VM" do
   command "mysql -u root backwpup_vagrant < /tmp/wp_options.sql > /var/log/wp_options.log"
   creates "/var/log/wp_options.log"
 end
+
+directory '/var/www/wp-content/plugins/backwpup/tmp' do
+  owner "root"
+  group "www-data"
+  mode 00664
+end
