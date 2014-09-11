@@ -4,6 +4,7 @@ package "mysql-server"
 package "php5"
 package "php5-mysql"
 package "vim"
+package "unzip"
 
 file "/var/www/index.html" do
   action :delete
@@ -75,4 +76,18 @@ directory '/var/www/wp-content/plugins/backwpup/tmp' do
   owner "root"
   group "www-data"
   mode 00664
+end
+
+file '/var/www/update-wordpress.sh' do
+  owner "root"
+  mode 00744
+  content <<-EOS
+#!/bin/bash
+
+cd /tmp
+wget http://wordpress.org/latest.zip
+unzip latest.zip
+cd /var/www/
+cp -avr /tmp/wordpress/* .
+EOS
 end
