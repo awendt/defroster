@@ -1,8 +1,9 @@
+execute "add-apt-repository ppa:ondrej/php"
 execute "apt-get update"
 package "apache2"
 package "mysql-server"
-package "php5"
-package "php5-mysql"
+package "php5.6"
+package "php5.6-mysql"
 package "vim"
 package "unzip"
 
@@ -24,18 +25,21 @@ execute "a2enmod rewrite"
 execute "a2enmod headers"
 execute "a2enmod filter"
 
-cookbook_file "/etc/apache2/sites-available/wordpress" do
+cookbook_file "/etc/apache2/sites-available/wordpress.conf" do
   source "wordpress.conf"
   mode "0644"
   action :create_if_missing
 end
 
-execute "a2dissite default"
+execute "a2dissite 000-default"
 execute "a2ensite wordpress && /etc/init.d/apache2 reload"
 
 bash "configure Wordpress for local" do
   code <<-EOS
     cd /var/www
+    if file --brief --exclude soft wp-config.php | grep -q ISO-8859; then
+      iconv -f ISO-8859-1 -o wp-config.php wp-config.php
+    fi
     sed -i -e "s/^define('DB_NAME'.*/define('DB_NAME', 'backwpup_vagrant');/" wp-config.php
     sed -i -e "s/^define('DB_USER'.*/define('DB_USER', 'root');/" wp-config.php
     sed -i -e "s/^define('DB_PASSWORD'.*/define('DB_PASSWORD', '');/" wp-config.php
