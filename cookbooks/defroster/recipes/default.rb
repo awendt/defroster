@@ -40,6 +40,7 @@ bash "configure Wordpress for local" do
     sed -i -e "s/^define('DB_USER'.*/define('DB_USER', 'root');/" wp-config.php
     sed -i -e "s/^define('DB_PASSWORD'.*/define('DB_PASSWORD', '');/" wp-config.php
     sed -i -e "s/^define('DB_HOST'.*/define('DB_HOST', 'localhost');/" wp-config.php
+    sed -i -e "s/^define('FORCE_SSL_ADMIN'.*/define('FORCE_SSL_ADMIN', false);/" wp-config.php
   EOS
 end
 
