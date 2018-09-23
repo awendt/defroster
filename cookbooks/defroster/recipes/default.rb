@@ -3,7 +3,15 @@ execute "apt-get update"
 package "apache2"
 package "mysql-server"
 package "php5.6"
+
+package "php5.6-curl"
+# This is needed for multi-byte strings:
+package "php5.6-mbstring"
 package "php5.6-mysql"
+
+# for whatever reason, PHP decided to include utf8 decoding functions in php-xml,
+# see http://php.net/manual/en/ref.xml.php
+package "php5.6-xml"
 package "vim"
 package "unzip"
 

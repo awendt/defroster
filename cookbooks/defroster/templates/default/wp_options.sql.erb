@@ -1,2 +1,3 @@
 UPDATE `wp_options` SET `option_value`='http://localhost:<%= @port %>' WHERE `option_name`='siteurl';
 UPDATE `wp_options` SET `option_value`='http://localhost:<%= @port %>' WHERE `option_name`='home';
+UPDATE `wp_options` SET `option_value`='/var/www/wp-content/uploads' WHERE `option_name`='upload_path';
