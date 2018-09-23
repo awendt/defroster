@@ -33,11 +33,6 @@ end
 execute "a2dissite default"
 execute "a2ensite wordpress && /etc/init.d/apache2 reload"
 
-additional_lines = <<-EOS
-  define('WP_HOME','http://localhost:8080');
-  define('WP_SITEURL','http://localhost:8080');
-EOS
-
 bash "configure Wordpress for local" do
   code <<-EOS
     cd /var/www
@@ -62,9 +57,9 @@ bash "restore dump" do
   only_if { %x(mysql -u root -e 'show tables' backwpup_vagrant).empty? }
 end
 
-cookbook_file "/tmp/wp_options.sql" do
-  source "wp_options.sql"
-  action :create_if_missing
+template "/tmp/wp_options.sql" do
+  source "wp_options.sql.erb"
+  variables(:port => ENV['PORT'] || 8080)
 end
 
 execute "tweak options to match this VM" do
